@@ -9,7 +9,7 @@ Backend em Node.js com Express e MongoDB para gerenciamento de dados da granja.
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/SEU_USUARIO/granja-back.git
+git clone https://github.com/FagnerTimoteo/granja-back.git
 cd granja-back
 ```
 
