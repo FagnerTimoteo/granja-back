@@ -1,17 +1,15 @@
-import { Router } from "express";
+import { Router } from "express"
+import { login, register, me } from "../controller/auth.controller.js";
+import { auth } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.post("/login", (req, res) => {
-  res.status(501).json({ message: "login not implemented" });
-});
+router.get('/', async (req, res) => { gamesController.readAll(req, res) });
+router.post('/', async (req, res) => { gamesController.create(req, res) });
 
-router.post("/register", (req, res) => {
-  res.status(501).json({ message: "register not implemented" });
-});
+router.post("/login", login)
+router.post("/register", register)
+router.get("/me", auth, me);
 
-router.get("/me", (req, res) => {
-  res.status(501).json({ message: "me not implemented" });
-});
 
 export default router;
