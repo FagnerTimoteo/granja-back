@@ -1,6 +1,6 @@
-import Sensors from "../models/Sensors";
+import Sensors from "../models/Sensors.js";
 
 export async function getAll(req, res) {
-  const sensors = await Sensors.findOne().sort({ createdAt: -1 });
+  const sensors = await Sensors.findOne();
   return res.json(sensors);
 }

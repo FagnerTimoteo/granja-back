@@ -12,6 +12,7 @@ const router = Router();
 router.use("/auth", authRoutes);
 router.use("/devices", devicesRoutes);
 router.use("/alerts", alertsRoutes);
+router.use("/sensors", sensorsRoutes);
 
 // Sub-rotas de dispositivos
 router.use("/devices/:id/sensors", sensorsRoutes);

@@ -17,6 +17,7 @@ cd granja-back
 ```bash
 npm install
 npm install bcryptjs jsonwebtoken mongoose express
+npm install mqtt
 ```
 
 ## 🛠️ Desenvolvimento
