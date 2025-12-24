@@ -1,9 +1,8 @@
-import { Router } from "express";
+import { Router } from "express"
+import { getAll } from "../controller/sensors.controller.js";
 
 const router = Router({ mergeParams: true });
 
-router.get("/", (req, res) => {
-  res.status(200).json([]);
-});
+router.get("/", getAll);
 
 export default router;
