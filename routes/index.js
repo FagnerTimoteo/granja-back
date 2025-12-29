@@ -13,10 +13,11 @@ router.use("/auth", authRoutes);
 router.use("/devices", devicesRoutes);
 router.use("/alerts", alertsRoutes);
 router.use("/sensors", sensorsRoutes);
+router.use("/config", configRoutes);
+
 
 // Sub-rotas de dispositivos
 router.use("/devices/:id/sensors", sensorsRoutes);
-router.use("/devices/:id/config", configRoutes);
 router.use("/devices/:id/command", commandRoutes);
 
 export default router;

@@ -1,13 +1,9 @@
 import { Router } from "express";
+import { getConfig, updateConfig } from "../controller/config.controller.js";
 
-const router = Router({ mergeParams: true });
+const router = Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json({});
-});
-
-router.put("/", (req, res) => {
-  res.status(501).json({ message: "config update not implemented" });
-});
+router.get("/", getConfig);
+router.put("/", updateConfig);
 
 export default router;
