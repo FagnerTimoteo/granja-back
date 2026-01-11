@@ -6,7 +6,7 @@ const SensorsSchema = new mongoose.Schema(
     humidity: Number,
     luminosity: Number,
     rationWeight: Number,
-    waterLevel: Number
+    waterLevel: Boolean
   },
   { timestamps: true }
 );
