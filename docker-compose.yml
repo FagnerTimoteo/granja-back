@@ -1,0 +1,19 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: granja-mongodb
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: banco
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - granja-network
+
+volumes:
+  mongo_data:
+
+networks:
+  granja-network:
+    driver: bridge

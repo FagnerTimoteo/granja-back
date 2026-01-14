@@ -6,6 +6,7 @@ import sensorsRoutes from "./sensors.routes.js";
 import configRoutes from "./config.routes.js";
 import commandRoutes from "./command.routes.js";
 import alertsRoutes from "./alerts.routes.js";
+import actionsRoutes from "./actions.routes.js";
 
 const router = Router();
 
@@ -14,6 +15,7 @@ router.use("/devices", devicesRoutes);
 router.use("/alerts", alertsRoutes);
 router.use("/sensors", sensorsRoutes);
 router.use("/config", configRoutes);
+router.use("/actions", actionsRoutes);
 
 
 // Sub-rotas de dispositivos
