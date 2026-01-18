@@ -1,1 +1,10 @@
-node_modules/
+Prisma
+/prisma/dev.db
+/prisma/migrations/
+/node_modules/
+
+/node_modules/@prisma/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
