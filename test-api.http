@@ -1,0 +1,100 @@
+### Cadastro de usuário
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Admin Teste2",
+  "email": "admin2@teste.com",
+  "password": "123456743",
+  "address": "Rua 1, 123",
+  "birthDate": "1990-01-01",
+  "rg": "1234567",
+  "cpfCnpj": "123.456.789-10",
+  "phone": "11999999999"
+}
+
+### Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@teste.com",
+  "password": "123456"
+}
+
+### Consultar perfil (autenticado)
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY4NzYwMTYwLCJleHAiOjE3Njg4NDY1NjB9.YOlv_Ivi5C3Qc8DZgqyCx22qU1MbGLNoNlg--qucvHE
+
+### Registrar leitura dos sensores
+POST http://localhost:3000/api/sensors
+Content-Type: application/json
+
+{
+  "temperature": 25.5,
+  "humidity": 60.2,
+  "luminosity": 300,
+  "rationWeight": 12.5,
+  "waterLevel": true
+}
+
+### Consultar última leitura dos sensores
+GET http://localhost:3000/api/sensors
+
+### Atualizar configuração
+PUT http://localhost:3000/api/config
+Content-Type: application/json
+
+{
+  "mode": "auto",
+  "lighting": { "enabled": true, "schedule": { "on": "06:00", "off": "18:00" } },
+  "fan": { "enabled": true, "temperature": { "on": 28, "off": 24 } },
+  "feeder": { "enabled": true, "weight": { "min": 5, "max": 20 } },
+  "waterPump": { "enabled": true }
+}
+
+### Consultar configuração
+GET http://localhost:3000/api/config
+
+### Registrar ação manual
+POST http://localhost:3000/api/actions
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "system": "water",
+  "action": "activate",
+  "quantity": 1
+}
+
+### Listar ações
+GET http://localhost:3000/api/actions?system=water&limit=5
+
+### Cadastrar dispositivo
+POST http://localhost:3000/api/devices
+Content-Type: application/json
+
+{
+  "name": "Ventoinha 1",
+  "type": "fan",
+  "status": "off"
+}
+
+### Listar dispositivos
+GET http://localhost:3000/api/devices
+
+### Consultar dispositivo por ID
+GET http://localhost:3000/api/devices/1
+
+### Atualizar dispositivo
+PUT http://localhost:3000/api/devices/1
+Content-Type: application/json
+
+{
+  "name": "Ventoinha 1",
+  "type": "fan",
+  "status": "on"
+}
+
+### Remover dispositivo
+DELETE http://localhost:3000/api/devices/1
