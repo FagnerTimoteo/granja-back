@@ -3,13 +3,13 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "Admin Teste2",
-  "email": "admin2@teste.com",
+  "name": "Admin test3",
+  "email": "admin3@teste.com",
   "password": "123456743",
   "address": "Rua 1, 123",
   "birthDate": "1990-01-01",
   "rg": "1234567",
-  "cpfCnpj": "123.456.789-10",
+  "cpfCnpj": "710.323.054-44",
   "phone": "11999999999"
 }
 
@@ -18,13 +18,13 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "admin@teste.com",
-  "password": "123456"
+  "email": "admin3@teste.com",
+  "password": "123456743"
 }
 
 ### Consultar perfil (autenticado)
 GET http://localhost:3000/api/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY4NzYwMTYwLCJleHAiOjE3Njg4NDY1NjB9.YOlv_Ivi5C3Qc8DZgqyCx22qU1MbGLNoNlg--qucvHE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY5Mjc2NDIxLCJleHAiOjE3NjkzNjI4MjF9.wxOYAzjaaURwXSGr8LMhwhn9QOZZqpPnLJ47-2Nr6Bo
 
 ### Registrar leitura dos sensores
 POST http://localhost:3000/api/sensors
@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ### Consultar última leitura dos sensores
-GET http://localhost:3000/api/sensors
+GET http://localhost:3000/api/sensors?limit=5
 
 ### Atualizar configuração
 PUT http://localhost:3000/api/config
@@ -55,6 +55,71 @@ Content-Type: application/json
 
 ### Consultar configuração
 GET http://localhost:3000/api/config
+
+### Atualizar configuração com saveInterval (10 segundos)
+PUT http://localhost:3000/api/config
+Content-Type: application/json
+
+{
+  "mode": "auto",
+  "lighting": { "enabled": true, "schedule": { "on": "06:00", "off": "18:00" } },
+  "fan": { "enabled": true, "temperature": { "on": 28, "off": 24 } },
+  "feeder": { "enabled": true, "weight": { "min": 10, "max": 20 } },
+  "waterPump": { "enabled": true },
+  "saveInterval": 10
+}
+
+### Atualizar apenas o saveInterval (30 segundos)
+PUT http://localhost:3000/api/config
+Content-Type: application/json
+
+{
+  "saveInterval": 30
+}
+
+### Atualizar saveInterval para 60 segundos (1 minuto)
+PUT http://localhost:3000/api/config
+Content-Type: application/json
+
+{
+  "saveInterval": 60
+}
+
+### Atualizar saveInterval para 5 segundos (padrão)
+PUT http://localhost:3000/api/config
+Content-Type: application/json
+
+{
+  "saveInterval": 5
+}
+
+### Verificar configuração após atualização do saveInterval
+GET http://localhost:3000/api/config
+
+### ============================================
+### TESTES DE VALIDAÇÃO DO saveInterval
+### ============================================
+
+### Teste 1: Configurar intervalo curto (5s) para teste rápido
+PUT http://localhost:3000/api/config
+Content-Type: application/json
+
+{
+  "saveInterval": 5
+}
+
+### Teste 2: Verificar se intervalo foi salvo
+GET http://localhost:3000/api/config
+
+### Teste 3: Consultar últimos registros de sensores (verificar intervalo)
+GET http://localhost:3000/api/sensors?limit=10
+
+### Teste 4: Consultar histórico completo (para análise de intervalos)
+GET http://localhost:3000/api/sensors?limit=20&skip=0
+
+### ============================================
+### FIM DOS TESTES DE saveInterval
+### ============================================
 
 ### Registrar ação manual
 POST http://localhost:3000/api/actions
