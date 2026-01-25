@@ -23,7 +23,10 @@ export async function updateConfig(req, res) {
     if (existingConfig) {
       const updateData = {
         ...data,
-        saveInterval: data.saveInterval !== undefined ? data.saveInterval : existingConfig.saveInterval,
+        saveInterval:
+          data.saveInterval !== undefined
+            ? data.saveInterval
+            : existingConfig.saveInterval,
       };
 
       config = await prisma.config.update({
@@ -33,29 +36,19 @@ export async function updateConfig(req, res) {
     } else {
       const createData = {
         mode: data.mode || 'auto',
-        lighting: data.lighting || {
-          enabled: true,
-          schedule: {
-            on: '06:00',
-            off: '18:00'
-          }
+        light: data.light || {
+          control: 'ldr',
+          ldrThreshold: 1500,
+          onTime: '19:00',
+          offTime: '05:00',
         },
-        fan: data.fan || {
-          enabled: true,
-          temperature: {
-            on: 28,
-            off: 24
-          }
+        temperature: data.temperature || {
+          min: 22.0,
+          max: 30.0,
         },
-        feeder: data.feeder || {
-          enabled: true,
-          weight: {
-            min: 5,
-            max: 20
-          }
-        },
-        waterPump: data.waterPump || {
-          enabled: true
+        ration: data.ration || {
+          minWeight: 300,
+          maxWeight: 1000,
         },
         saveInterval: data.saveInterval !== undefined ? data.saveInterval : 5,
       };
@@ -69,21 +62,31 @@ export async function updateConfig(req, res) {
       updateSaveInterval(data.saveInterval);
     }
 
+    // Prepara configuração para ESP32 (remove saveInterval que é apenas do backend)
     const espConfig = { ...config };
     delete espConfig.saveInterval;
+    delete espConfig.id;
+    delete espConfig.createdAt;
+    delete espConfig.updatedAt;
+    delete espConfig.mode;
+
     mqttClient.publish('granja/config', JSON.stringify(espConfig));
 
     return res.json(config);
   } catch (error) {
     console.error('Erro ao atualizar configuração:', error);
-    
+
     if (error.message && error.message.includes('saveInterval')) {
-      return res.status(500).json({ 
-        message: 'Campo saveInterval não existe no banco. Execute a migração: npx prisma migrate dev',
-        error: error.message 
+      return res.status(500).json({
+        message:
+          'Campo saveInterval não existe no banco. Execute a migração: npx prisma migrate dev',
+        error: error.message,
       });
     }
-    
-    return res.status(500).json({ message: 'Erro ao atualizar configuração', error: error.message });
+
+    return res.status(500).json({
+      message: 'Erro ao atualizar configuração',
+      error: error.message,
+    });
   }
 }

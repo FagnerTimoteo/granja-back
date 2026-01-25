@@ -47,10 +47,20 @@ Content-Type: application/json
 
 {
   "mode": "auto",
-  "lighting": { "enabled": true, "schedule": { "on": "06:00", "off": "18:00" } },
-  "fan": { "enabled": true, "temperature": { "on": 28, "off": 24 } },
-  "feeder": { "enabled": true, "weight": { "min": 5, "max": 20 } },
-  "waterPump": { "enabled": true }
+  "light": {
+    "control": "schedule",
+    "ldrThreshold": 1500,
+    "onTime": "06:00",
+    "offTime": "18:00"
+  },
+  "temperature": {
+    "min": 22.0,
+    "max": 30.0
+  },
+  "ration": {
+    "minWeight": 300,
+    "maxWeight": 1000
+  }
 }
 
 ### Consultar configuração
@@ -62,10 +72,20 @@ Content-Type: application/json
 
 {
   "mode": "auto",
-  "lighting": { "enabled": true, "schedule": { "on": "06:00", "off": "18:00" } },
-  "fan": { "enabled": true, "temperature": { "on": 28, "off": 24 } },
-  "feeder": { "enabled": true, "weight": { "min": 10, "max": 20 } },
-  "waterPump": { "enabled": true },
+  "light": {
+    "control": "schedule",
+    "ldrThreshold": 1500,
+    "onTime": "06:00",
+    "offTime": "18:00"
+  },
+  "temperature": {
+    "min": 24.0,
+    "max": 28.0
+  },
+  "ration": {
+    "minWeight": 300,
+    "maxWeight": 1000
+  },
   "saveInterval": 10
 }
 

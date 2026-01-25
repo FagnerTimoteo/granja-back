@@ -35,10 +35,9 @@ model Sensors {
 model Config {
   id           Int      @id @default(autoincrement())
   mode         String
-  lighting     Json
-  fan          Json
-  feeder       Json
-  waterPump    Json
+  light        Json     // Configuração de iluminação (control, ldrThreshold, onTime, offTime)
+  temperature  Json     // Configuração de temperatura (min, max)
+  ration       Json     // Configuração de ração (minWeight, maxWeight)
   saveInterval Int      @default(5) // Intervalo em segundos para salvar dados no banco
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
