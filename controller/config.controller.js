@@ -43,8 +43,8 @@ export async function updateConfig(req, res) {
           offTime: '05:00',
         },
         temperature: data.temperature || {
-          min: 22.0,
-          max: 30.0,
+          min: 19.0,
+          max: 25.0,
         },
         ration: data.ration || {
           minWeight: 300,
@@ -62,13 +62,13 @@ export async function updateConfig(req, res) {
       updateSaveInterval(data.saveInterval);
     }
 
-    // Prepara configuração para ESP32 (remove saveInterval que é apenas do backend)
-    const espConfig = { ...config };
-    delete espConfig.saveInterval;
-    delete espConfig.id;
-    delete espConfig.createdAt;
-    delete espConfig.updatedAt;
-    delete espConfig.mode;
+    // Prepara configuração para ESP32
+    const espConfig = {
+      light: config.light,
+      temperature: config.temperature,
+      ration: config.ration,
+      saveInterval: config.saveInterval,
+    };
 
     mqttClient.publish('granja/config', JSON.stringify(espConfig));
 
