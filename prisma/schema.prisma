@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  address   String?
+  birthDate DateTime?
+  rg        String?
+  cpfCnpj   String?
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  actions   Action[]
+}
+
+model Sensors {
+  id           Int      @id @default(autoincrement())
+  temperature  Float
+  humidity     Float
+  luminosity   Float
+  rationWeight Float
+  waterLevel   Boolean
+  createdAt    DateTime @default(now())
+}
+
+model Config {
+  id           Int      @id @default(autoincrement())
+  mode         String
+  lighting     Json
+  fan          Json
+  feeder       Json
+  waterPump    Json
+  saveInterval Int      @default(5) // Intervalo em segundos para salvar dados no banco
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Action {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  system    String
+  action    String
+  quantity  Float?
+  createdAt DateTime @default(now())
+}
+
+model Device {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
