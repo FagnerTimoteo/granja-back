@@ -18,12 +18,20 @@ export async function register(req, res) {
     !cpfCnpj ||
     !phone
   ) {
-    return res.status(400).json({ message: 'faltam campos obrigatórios' });
+    return res.status(400).json({ message: "faltam campos obrigatórios" });
+  }
+
+  const parsedBirthDate = new Date(birthDate);
+
+  if (isNaN(parsedBirthDate.getTime())) {
+    return res.status(400).json({
+      message: "Data de nascimento inválida",
+    });
   }
 
   const exists = await prisma.user.findUnique({ where: { email } });
   if (exists) {
-    return res.status(409).json({ message: 'usuário já existente' });
+    return res.status(409).json({ message: "usuário já existente" });
   }
 
   const hash = await bcrypt.hash(password, 10);
@@ -34,7 +42,7 @@ export async function register(req, res) {
       email,
       password: hash,
       address,
-      birthDate: new Date(birthDate),
+      birthDate: parsedBirthDate,
       rg,
       cpfCnpj,
       phone,
@@ -47,6 +55,7 @@ export async function register(req, res) {
     email: user.email,
   });
 }
+
 
 export async function login(req, res) {
   const { email, password } = req.body;
