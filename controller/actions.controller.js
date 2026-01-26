@@ -4,8 +4,8 @@ const prisma = new PrismaClient();
 export async function createAction(req, res) {
   const { userId, system, action, quantity } = req.body;
 
-  if (!user || !system || !action || !type) {
-    return res.status(400).json({ message: 'Campos obrigatórios faltando' });
+  if (!userId || !system || !action) {
+    return res.status(400).json({ message: 'Campos obrigatórios faltando!' });
   }
 
   const newAction = await prisma.action.create({

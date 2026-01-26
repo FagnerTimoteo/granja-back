@@ -1,9 +1,7 @@
-import { Router } from "express";
+import { Router } from 'express';
+import { sendDeviceCommand } from '../controller/command.controller.js';
 
-const router = Router({ mergeParams: true });
+const router = Router();
 
-router.post("/", (req, res) => {
-  res.status(202).json({ message: "command accepted (stub)" });
-});
-
+router.post('/', sendDeviceCommand);
 export default router;
