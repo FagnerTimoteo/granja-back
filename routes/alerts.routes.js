@@ -2,12 +2,13 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json([]);
-});
+// TODO: Implementar alertas quando houver modelo no banco de dados
+// Por enquanto, apenas retorna array vazio
 
-router.patch("/:id", (req, res) => {
-  res.status(501).json({ message: "alert update not implemented" });
+router.get("/", (req, res) => {
+  res.status(200).json([
+    // Alertas serão implementados posteriormente
+  ]);
 });
 
 export default router;

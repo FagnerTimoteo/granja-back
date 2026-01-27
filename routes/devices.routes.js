@@ -13,7 +13,6 @@ router.post('/', createDevice);
 router.get('/', listDevices);
 router.get('/:id', getDeviceById);
 router.patch('/:id', updateDevice);
-router.put('/:id', updateDevice);
 router.delete('/:id', deleteDevice);
 
 export default router;

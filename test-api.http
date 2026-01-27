@@ -71,7 +71,6 @@ PUT http://localhost:3000/api/config
 Content-Type: application/json
 
 {
-  "mode": "auto",
   "light": {
     "control": "schedule",
     "ldrThreshold": 1500,
@@ -86,7 +85,6 @@ Content-Type: application/json
     "minWeight": 300,
     "maxWeight": 1000
   },
-  "saveInterval": 10
 }
 
 ### Atualizar apenas o saveInterval (30 segundos)
@@ -141,7 +139,95 @@ GET http://localhost:3000/api/sensors?limit=20&skip=0
 ### FIM DOS TESTES DE saveInterval
 ### ============================================
 
-### Registrar ação manual
+### ============================================
+### TESTES DE COMMANDS (MQTT)
+### ============================================
+
+### Ligar ventilador (fan ON)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "fan",
+  "state": "ON",
+  "userId": 1
+}
+
+### Desligar ventilador (fan OFF)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "fan",
+  "state": "OFF",
+  "userId": 1
+}
+
+### Ligar iluminação (light ON)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "light",
+  "state": "ON",
+  "userId": 1
+}
+
+### Desligar iluminação (light OFF)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "light",
+  "state": "OFF",
+  "userId": 1
+}
+
+### Ligar bomba de água (pump ON)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "pump",
+  "state": "ON",
+  "userId": 1
+}
+
+### Desligar bomba de água (pump OFF)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "pump",
+  "state": "OFF",
+  "userId": 1
+}
+
+### Ligar alimentador (feeder ON)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "feeder",
+  "state": "ON",
+  "userId": 1
+}
+
+### Desligar alimentador (feeder OFF)
+POST http://localhost:3000/api/command
+Content-Type: application/json
+
+{
+  "actuator": "feeder",
+  "state": "OFF",
+  "userId": 1
+}
+
+### ============================================
+### VERIFICAR REGISTROS DE AÇÕES
+### ============================================
+
+### Registrar ação manual (teste sem command)
 POST http://localhost:3000/api/actions
 Content-Type: application/json
 
@@ -152,34 +238,14 @@ Content-Type: application/json
   "quantity": 1
 }
 
-### Listar ações
-GET http://localhost:3000/api/actions?system=water&limit=5
+### Listar todas as ações
+GET http://localhost:3000/api/actions?limit=20
 
-### Cadastrar dispositivo
-POST http://localhost:3000/api/devices
-Content-Type: application/json
+### Listar ações do sistema 'fan' (deve incluir commands de ventilador)
+GET http://localhost:3000/api/actions?system=fan&limit=10
 
-{
-  "name": "Ventoinha 1",
-  "type": "fan",
-  "status": "off"
-}
+### Listar ações do sistema 'light' (deve incluir commands de iluminação)
+GET http://localhost:3000/api/actions?system=light&limit=10
 
-### Listar dispositivos
-GET http://localhost:3000/api/devices
-
-### Consultar dispositivo por ID
-GET http://localhost:3000/api/devices/1
-
-### Atualizar dispositivo
-PUT http://localhost:3000/api/devices/1
-Content-Type: application/json
-
-{
-  "name": "Ventoinha 1",
-  "type": "fan",
-  "status": "on"
-}
-
-### Remover dispositivo
-DELETE http://localhost:3000/api/devices/1
+### Listar ações do sistema 'pump' (deve incluir commands de bomba)
+GET http://localhost:3000/api/actions?system=pump&limit=10

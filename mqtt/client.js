@@ -89,4 +89,13 @@ export function getSaveInterval() {
   return saveIntervalSeconds;
 }
 
+export function publishCommand(actuator, state) {
+  const payload = JSON.stringify({
+    actuator: actuator,
+    state: state,
+  });
+  client.publish('granja/manual', payload);
+  console.log(`Comando MQTT publicado: ${actuator} -> ${state}`);
+}
+
 export default client;
