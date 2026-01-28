@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 
 export async function sendDeviceCommand(req, res) {
   const { id } = req.params;
+  const userId = req.userId;
   const { actuator, state } = req.body;
 
   if (!actuator || !state) {
@@ -25,7 +26,7 @@ export async function sendDeviceCommand(req, res) {
     try {
       await prisma.action.create({
         data: {
-          userId: req.body.userId || 1, // ID do usuário se fornecido
+          userId, // ID do usuário se fornecido
           system: actuator,
           action: state,
           quantity: null,
