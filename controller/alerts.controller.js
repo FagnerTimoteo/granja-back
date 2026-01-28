@@ -31,8 +31,11 @@ export async function createAlert(req, res) {
 // Listar todos os alertas
 export async function getAllAlerts(req, res) {
   try {
+    const take = req.query.limit ? parseInt(req.query.limit) : undefined;
+
     const alerts = await prisma.alert.findMany({
       orderBy: { createdAt: 'desc' },
+      take: take,
     });
 
     res.json(alerts);
