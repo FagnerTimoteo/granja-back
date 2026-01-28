@@ -1,14 +1,9 @@
-import { Router } from "express";
+import { Router } from 'express';
+import { createAlert, getAllAlerts } from '../controller/alerts.controller.js';
 
 const router = Router();
 
-// TODO: Implementar alertas quando houver modelo no banco de dados
-// Por enquanto, apenas retorna array vazio
-
-router.get("/", (req, res) => {
-  res.status(200).json([
-    // Alertas serão implementados posteriormente
-  ]);
-});
+router.post('/', createAlert);
+router.get('/', getAllAlerts);
 
 export default router;

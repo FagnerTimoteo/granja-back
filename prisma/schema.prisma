@@ -70,3 +70,12 @@ model Alert {
   createdAt DateTime @default(now())
 >>>>>>> Stashed changes
 }
+
+model Alert {
+  id        Int      @id @default(autoincrement())
+  type      String   // ex: RATION_LOW, RATION_HIGH, PUMP_TIMEOUT, etc
+  message   String?
+  data      Json?    // dados adicionais do alerta (currentWeight, minWeight, etc)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

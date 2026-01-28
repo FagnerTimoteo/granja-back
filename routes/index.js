@@ -5,6 +5,7 @@ import sensorsRoutes from './sensors.routes.js';
 import configRoutes from './config.routes.js';
 import commandRoutes from './command.routes.js';
 import actionsRoutes from './actions.routes.js';
+import alertsRoutes from './alerts.routes.js';
 
 const router = Router();
 
@@ -13,5 +14,6 @@ router.use('/sensors', sensorsRoutes);
 router.use('/config', configRoutes);
 router.use('/actions', actionsRoutes);
 router.use('/command', commandRoutes);
+router.use('/alerts', alertsRoutes);
 
 export default router;
