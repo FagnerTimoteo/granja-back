@@ -31,11 +31,11 @@ POST http://localhost:3000/api/sensors
 Content-Type: application/json
 
 {
-  "temperature": 25.5,
-  "humidity": 60.2,
+  "temperature": 30,
+  "humidity": 64,
   "luminosity": 300,
-  "rationWeight": 12.5,
-  "waterLevel": true
+  "rationWeight": 500,
+  "waterLevel": false
 }
 
 ### Consultar última leitura dos sensores
@@ -245,7 +245,79 @@ GET http://localhost:3000/api/actions?limit=20
 GET http://localhost:3000/api/actions?system=fan&limit=10
 
 ### Listar ações do sistema 'light' (deve incluir commands de iluminação)
-GET http://localhost:3000/api/actions?system=light&limit=10
+GET http://localhost:3000/api/actions?system=light&limit=1
 
 ### Listar ações do sistema 'pump' (deve incluir commands de bomba)
 GET http://localhost:3000/api/actions?system=pump&limit=10
+### ============================================
+### TESTES DE ALERTAS (MQTT)
+### ============================================
+
+GET http://localhost:3000/api/alerts
+
+### Criar alerta manualmente (RATION_LOW)
+POST http://localhost:3000/api/alerts
+Content-Type: application/json
+
+{
+  "type": "RATION_LOW",
+  "message": "Ração abaixo do mínimo permitido",
+  "data": {
+    "currentWeight": 2.5,
+    "minWeight": 3.0
+  }
+}
+
+### Criar alerta manualmente (RATION_HIGH)
+POST http://localhost:3000/api/alerts
+Content-Type: application/json
+
+{
+  "type": "RATION_HIGH",
+  "message": "Ração acima do máximo permitido",
+  "data": {
+    "currentWeight": 12.5,
+    "maxWeight": 10.0
+  }
+}
+
+### Criar alerta genérico
+POST http://localhost:3000/api/alerts
+Content-Type: application/json
+
+{
+  "type": "PUMP_TIMEOUT",
+  "message": "Bomba ligada por mais tempo que o permitido",
+  "data": {
+    "timeOn": 15,
+    "maxAllowed": 10
+  }
+}
+
+### Listar todos os alertas
+GET http://localhost:3000/api/alerts
+
+### Listar apenas alertas não resolvidos
+GET http://localhost:3000/api/alerts/unresolved
+
+### Obter estatísticas de alertas
+GET http://localhost:3000/api/alerts/stats
+
+### Listar alertas do tipo RATION_LOW
+GET http://localhost:3000/api/alerts/type/RATION_LOW
+
+### Listar alertas do tipo RATION_HIGH
+GET http://localhost:3000/api/alerts/type/RATION_HIGH
+
+### Obter alerta específico (ID 1 - ajuste conforme necessário)
+GET http://localhost:3000/api/alerts/1
+
+### Marcar alerta como resolvido (ID 1 - ajuste conforme necessário)
+PATCH http://localhost:3000/api/alerts/1/resolve
+
+### Limpar todos os alertas resolvidos
+DELETE http://localhost:3000/api/alerts/clear-resolved
+
+### ============================================
+### FIM DOS TESTES DE ALERTAS
+### ============================================

@@ -62,6 +62,14 @@ export async function updateConfig(req, res) {
       updateSaveInterval(data.saveInterval);
     }
 
+    if (
+      data.mode !== undefined &&
+      existingConfig &&
+      data.mode !== existingConfig.mode
+    ) {
+      mqttClient.publish('granja/mode', JSON.stringify({ mode: data.mode }));
+    }
+
     // Prepara configuração para ESP32
     const espConfig = {
       light: config.light,
