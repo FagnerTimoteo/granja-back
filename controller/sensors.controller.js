@@ -16,10 +16,17 @@ export async function getAll(req, res) {
 }
 
 export async function createReading(req, res) {
-  const { temperature, humidity, luminosity, rationWeight, waterLevel } =
-    req.body;
+  const {
+    termistorTemp,
+    dhtTemp,
+    humidity,
+    luminosity,
+    rationWeight,
+    waterLevel,
+  } = req.body;
+
   if (
-    temperature === undefined ||
+    (termistorTemp === undefined && dhtTemp === undefined) ||
     humidity === undefined ||
     luminosity === undefined ||
     rationWeight === undefined ||
@@ -27,6 +34,19 @@ export async function createReading(req, res) {
   ) {
     return res.status(400).json({ message: 'faltam campos obrigatórios' });
   }
+
+  let temperature;
+  const hasTermistor = termistorTemp !== null && termistorTemp !== undefined;
+  const hasDht = dhtTemp !== null && dhtTemp !== undefined;
+
+  if (hasTermistor && hasDht) {
+    temperature = (termistorTemp + dhtTemp) / 2;
+  } else if (hasTermistor) {
+    temperature = termistorTemp;
+  } else if (hasDht) {
+    temperature = dhtTemp;
+  }
+
   const sensors = await prisma.sensors.create({
     data: {
       temperature,

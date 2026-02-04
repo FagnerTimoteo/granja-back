@@ -41,9 +41,30 @@ async function saveAlert(data) {
 
 async function saveSensorData(data) {
   try {
+    let temperature = 0;
+    const hasTermistor =
+      data.termistorTemp !== undefined && data.termistorTemp !== null;
+    const hasDHT = data.dhtTemp !== undefined && data.dhtTemp !== null;
+
+    if (hasTermistor && hasDHT) {
+      temperature = (data.termistorTemp + data.dhtTemp) / 2;
+      console.log(
+        `Temperatura: Média (${data.termistorTemp} + ${data.dhtTemp}) / 2 = ${temperature.toFixed(2)}°C`,
+      );
+    } else if (hasTermistor) {
+      temperature = data.termistorTemp;
+      console.log(`Temperatura: Termistor = ${temperature.toFixed(2)}°C`);
+    } else if (hasDHT) {
+      temperature = data.dhtTemp;
+      console.log(`Temperatura: DHT11 = ${temperature.toFixed(2)}°C`);
+    } else {
+      console.warn('Aviso: Nenhum sensor de temperatura disponível');
+      temperature = 0;
+    }
+
     await prisma.sensors.create({
       data: {
-        temperature: data.temperature,
+        temperature: temperature,
         humidity: data.humidity,
         luminosity: data.luminosity,
         rationWeight: data.rationWeight,

@@ -26,20 +26,76 @@ Content-Type: application/json
 GET http://localhost:3000/api/auth/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY5Mjc2NDIxLCJleHAiOjE3NjkzNjI4MjF9.wxOYAzjaaURwXSGr8LMhwhn9QOZZqpPnLJ47-2Nr6Bo
 
-### Registrar leitura dos sensores
+### ============================================
+### TESTES DE SENSORES - Payload com duas temperaturas
+### ============================================
+
+### Teste 1: Ambas as temperaturas (termistor + DHT11) - Deve fazer a média
 POST http://localhost:3000/api/sensors
 Content-Type: application/json
 
 {
-  "temperature": 30,
-  "humidity": 64,
-  "luminosity": 300,
-  "rationWeight": 500,
+  "dhtTemp": 26.0,
+  "humidity": 65.5,
+  "luminosity": 1500,
+  "rationWeight": 500.75,
   "waterLevel": false
 }
 
-### Consultar última leitura dos sensores
-GET http://localhost:3000/api/sensors?limit=5
+### Teste 2: Apenas termistorTemp (DHT11 com problema/indisponível)
+POST http://localhost:3000/api/sensors
+Content-Type: application/json
+
+{
+  "termistorTemp": 23.5,
+  "dhtTemp": null,
+  "humidity": 62.0,
+  "luminosity": 1400,
+  "rationWeight": 510.25,
+  "waterLevel": false
+}
+
+### Teste 3: Apenas dhtTemp (Termistor com problema/indisponível)
+POST http://localhost:3000/api/sensors
+Content-Type: application/json
+
+{
+  "termistorTemp": null,
+  "dhtTemp": 25.5,
+  "humidity": 68.0,
+  "luminosity": 1600,
+  "rationWeight": 495.50,
+  "waterLevel": true
+}
+
+### Teste 4: Ambas as temperaturas com valores bem diferentes (testa se faz média corretamente)
+POST http://localhost:3000/api/sensors
+Content-Type: application/json
+
+{
+  "termistorTemp": 20.0,
+  "dhtTemp": 28.0,
+  "humidity": 70.0,
+  "luminosity": 500,
+  "rationWeight": 600.00,
+  "waterLevel": false
+}
+
+### ============================================
+### VALIDAÇÃO DOS TESTES DE TEMPERATURA
+### ============================================
+
+### Verificar últimas 4 leituras (para ver os testes de temperatura)
+GET http://localhost:3000/api/sensors?limit=4&skip=0
+
+### ✓ ESPERADO:
+### - Teste 1: temperature = (24.0 + 26.0) / 2 = 25.0
+### - Teste 2: temperature = 23.5 (apenas termistor)
+### - Teste 3: temperature = 25.5 (apenas DHT)
+### - Teste 4: temperature = (20.0 + 28.0) / 2 = 24.0 (média bem diferente)
+
+### Verificar todas as leituras
+GET http://localhost:3000/api/sensors?limit=20
 
 ### Atualizar configuração
 PUT http://localhost:3000/api/config
