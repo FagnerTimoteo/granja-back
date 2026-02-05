@@ -1,8 +1,7 @@
 # 🐔 Granja Backend
 
-# 🐔 Granja Backend
-
-Backend em Node.js com Express e PostgreSQL para gerenciamento de dados da granja.
+Backend em Node.js com Express e PostgreSQL para gerenciamento de
+dados da granja.
 
 ---
 
