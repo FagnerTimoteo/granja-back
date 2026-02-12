@@ -1,5 +1,28 @@
 # 🐔 Granja Backend
 
+Backend responsável pelo controle e automação de uma granja via MQTT.
+
+Este serviço envia comandos para um ESP32 que executa o firmware
+[embedded-farm](https://github.com/FagnerTimoteo/embedded-farm),
+responsável por sensores e atuadores físicos.
+
+O sistema permite monitoramento em tempo real e automação de dispositivos
+como ventilação, iluminação e outros equipamentos da granja.
+
+## Arquitetura
+
+Backend ⇄ MQTT ⇄ ESP32 (embedded-farm) ⇄ Sensores/Atuadores
+
+## Frontend
+
+Este backend é utilizado junto com o frontend:
+[https://github.com/joelrodriguesvieira/front-end-farm-management](https://github.com/joelrodriguesvieira/front-end-farm-management.git)
+
+## Projetos relacionados
+
+- Firmware ESP32: embedded-farm
+- Frontend: front-end-farm-management
+
 Backend em Node.js com Express e MongoDB para gerenciamento de dados da granja.
 
 ---
