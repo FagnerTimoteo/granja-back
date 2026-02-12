@@ -16,7 +16,7 @@ Backend ⇄ MQTT ⇄ ESP32 (embedded-farm) ⇄ Sensores/Atuadores
 ## Frontend
 
 Este backend é utilizado junto com o frontend:
-[https://github.com/joelrodriguesvieira/front-end-farm-management](https://github.com/joelrodriguesvieira/front-end-farm-management.git)
+[front-end-farm-management](https://github.com/joelrodriguesvieira/front-end-farm-management.git)
 
 ## Projetos relacionados
 
