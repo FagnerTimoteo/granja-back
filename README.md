@@ -1,4 +1,4 @@
-# 🐔 Granja Backend
+# Granja Backend
 
 Backend responsável pelo controle e automação de uma granja via MQTT.
 
@@ -27,7 +27,7 @@ Backend em Node.js com Express e MongoDB para gerenciamento de dados da granja.
 
 ---
 
-## 📦 Instalação
+## Instalação
 
 1. Clone o repositório:
 
@@ -43,7 +43,7 @@ npm install bcryptjs jsonwebtoken mongoose express
 npm install mqtt
 ```
 
-## 🛠️ Desenvolvimento
+## Desenvolvimento
 
 1. Para rodar o servidor com nodemon:
 ``` bash
@@ -55,13 +55,13 @@ npm start
 http://localhost:3000
 ```
 
-## 🚀 Produção
+## Produção
 Para rodar o servidor no modo de produção:
 ``` bash
 npm start
 ```
 
-## 🗄️ Banco de Dados
+## Banco de Dados
 Este projeto usa MongoDB local.
 ``` bash
 # String de conexão:
@@ -78,7 +78,7 @@ Certifique-se de estar com o MongoDB rodando antes de iniciar o backend.
 ```bash
 ```
 
-### 📦 Tecnologias Utilizadas:
+### Tecnologias Utilizadas:
 1. Node.js
 2. Express
 3. MongoDB
