@@ -68,16 +68,6 @@ Este projeto usa MongoDB local.
 mongodb://127.0.0.1:27017/banco
 ```
 
-Certifique-se de estar com o MongoDB rodando antes de iniciar o backend.
-
-- **POST**
-```bash
-```
-
-- **GET**
-```bash
-```
-
 ### Tecnologias Utilizadas:
 1. Node.js
 2. Express
